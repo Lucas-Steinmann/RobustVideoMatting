@@ -31,8 +31,8 @@ All footage in the video are available in [Google Drive](https://drive.google.co
 
 
 ## Demo
-* [Webcam Demo](https://peterl1n.github.io/RobustVideoMatting/#/demo): Run the model live in your browser. Visualize recurrent states.
-* [Colab Demo](https://colab.research.google.com/drive/10z-pNKRnVNsp0Lq9tH1J_XPZ7CBC_uHm?usp=sharing): Test our model on your own videos with free GPU. 
+* [Browser Webcam Demo](https://peterl1n.github.io/RobustVideoMatting/#/demo): Run the model live in your browser. Visualize recurrent states.
+* [Colab Demo](https://colab.research.google.com/drive/10z-pNKRnVNsp0Lq9tH1J_XPZ7CBC_uHm?usp=sharing): Test our model on your own videos with free GPU.
 
 <br>
 
@@ -129,6 +129,39 @@ We recommend MobileNetv3 models for most use cases. ResNet50 models are the larg
 All models are available in [Google Drive](https://drive.google.com/drive/folders/1pBsG-SCTatv-95SnEuxmnvvlRx208VKj?usp=sharing) and [Baidu Pan](https://pan.baidu.com/s/1puPSxQqgBFOVpW4W7AolkA) (code: gym7).
 
 <br>
+
+## Webcam pipeline
+
+To set up a pipeline for creating a matted webcam video, which can be used as input to other programs.
+
+1. Clone the repository
+2. (optional) create a virtual env
+3. 
+```sh
+pip install -r requirements_webcam.txt
+```
+3. Download the PyTorch model weights `rvm_mobilenetv3.pth` or `rvm_resnet50.pth` listed in the table above.
+4. (optional) search for a background image
+5. run the `webcam.py` script:
+```sh
+python webcam.py\
+  --background <background_image>\
+  --backbone <backbone> \
+  --model-weights <model_weights>
+```
+where
+
+* `background_image` refers to the path to the chosen background image. 
+  Can be omitted if a constant green background should be used.
+* `backbone ` is one of `{mobilenetv3,resnet50}`. Must match your model weights.
+`mobilenetv3` requires less computational resources. If you use `mobilenetv3` you can omit this argument.
+* `model-weights ` is the path to the downloaded model weights. 
+If `mobilenetv3` is used and `rvm_mobilenetv3.pth` is placed in the current directory, you can omit this argument.
+
+More detailed usage can be found by running:
+```sh
+python webcam.py -h
+```
 
 ## PyTorch Example
 
